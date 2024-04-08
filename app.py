@@ -27,9 +27,8 @@ with st.sidebar:
         "Family situation",
         ("Single", "Married with no kids", "Married with kid(s)")
     )
-
+    
     your_prompt = st.text_input(label="Your Prompt", value=f"I am a {age} year old person from {country}. I work in, or want to work in, the {industry} industry. I have {education_level} education level in {field_of_study}. My family situation is that I am {family_situation}.")
-
 
 SYSTEM_PROMPT = '''
 You are an expert immigration assistant. Your job is to provide the user with the best 3 to 5 options of countries they could immigrate to based on their profile.
@@ -54,19 +53,15 @@ Please consider the following in your recommendations:
 4. Quality of Life Factors: Briefly touch on aspects that could influence the quality of life, including the country’s healthcare system, education system, safety, and cultural integration opportunities, especially considering the user's family situation.
 
 Your recommendations should help the user make an informed decision about which country or countries could be the best fit for their immigration goals, considering professional opportunities, lifestyle preferences, and family needs.
-
 '''
 
-def process_user_input():
-    return f"I am a {age} year old person from {country}. I work in, or want to work in, the {industry} industry. I have {education_level} education level in {field_of_study}. My family situation is that I am {family_situation}."
-
-def generate_response(user_prompt): 
+def generate_response(question): 
     client = anthropic.Anthropic()
     response = client.messages.create(
         model="claude-3-opus-20240229",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
-        messages=[{"role":"user", "content":user_prompt}],
+        messages=[{"role":"user", "content":question}],
     )
     return response.content[0].text
 
@@ -95,5 +90,3 @@ if st.session_state.messages[-1]["role"] != "assistant":
             st.write(response) 
     message = {"role": "assistant", "content": response}
     st.session_state.messages.append(message)
-
-
