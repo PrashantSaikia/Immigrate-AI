@@ -1,6 +1,8 @@
 import anthropic
 import streamlit as st
 
+st. set_page_config(layout="wide"
+
 ### Sidebar contents
 with st.sidebar:
     st.title("What's your profile?")
