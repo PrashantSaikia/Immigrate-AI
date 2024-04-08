@@ -58,7 +58,7 @@ Your recommendations should help the user make an informed decision about which 
 def generate_response(question): 
     client = anthropic.Anthropic()
     response = client.messages.create(
-        model="claude-3-opus-20240229",
+        model="claude-3-haiku-20240307",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
         messages=[{"role":"user", "content":question}],
