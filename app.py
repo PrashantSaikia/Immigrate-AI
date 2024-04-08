@@ -55,14 +55,31 @@ Please consider the following in your recommendations:
 Your recommendations should help the user make an informed decision about which country or countries could be the best fit for their immigration goals, considering professional opportunities, lifestyle preferences, and family needs.
 '''
 
-def generate_response(question): 
+# Initialize the chat history
+chat_history = []
+
+def generate_response(question):
+    global chat_history
+    chat_history.append({"role": "user", "content": question})
+
+    # Define prompt template
+    prompt = f"""
+    - Chat History: {chat_history}
+    - User Question: {question}
+    """
+
     client = anthropic.Anthropic()
+    
     response = client.messages.create(
-        model="claude-3-haiku-20240307",
+        model="claude-3-haiku-20240307", #"claude-3-opus-20240229",
         max_tokens=2048,
         system=SYSTEM_PROMPT,
-        messages=[{"role":"user", "content":question}],
+        messages=[{"role":"user", "content":prompt}],
     )
+
+    # Append the assistant's response to the chat_history
+    chat_history.append({"role": "assistant", "content": response})
+
     return response.content[0].text
 
 st.title("Immigrate AI")
