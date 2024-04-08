@@ -80,7 +80,7 @@ for message in st.session_state.messages:
 if user_prompt := st.chat_input():
     st.session_state.messages.append({"role": "user", "content": user_prompt})
     with st.chat_message("user"):
-        st.write(process_user_input())
+        st.write(user_prompt)
 
 # Generate a new response if last message is not from assistant
 if st.session_state.messages[-1]["role"] != "assistant":
