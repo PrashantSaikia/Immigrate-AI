@@ -1,2 +1,2 @@
-anthropic
-streamlit
+anthropic==0.20.0
+streamlit==1.33.0
